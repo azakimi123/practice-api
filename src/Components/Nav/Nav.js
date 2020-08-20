@@ -17,17 +17,19 @@ export default () => {
   // don't show if on auth page
   if (location.pathname === "/") return null;
 
-
-  console.log(userData)
   return (
     <section className="nav-background">
       <div className="nav">
-        <label>Meal2Plan</label>
-        <section className='right-nav'>
-          <Link className='nav-link' to="/test">Test</Link>
-          <Link className='nav-link' to="/meal-plan">Meal Plan</Link>
-          <Link className='nav-link' to="/profile"><img className='profile-pic' src={userData.profile_picture}/></Link>
-        </section>
+        <div>
+          <label>Meal2Plan</label>
+          <Link to="/search">Search</Link>
+        </div>
+        <div>
+          <Link to="/cart">Cart</Link>
+          <Link to="/profile">
+            {userData.first_name} {userData.last_name}
+          </Link>
+        </div>
       </div>
     </section>
   );

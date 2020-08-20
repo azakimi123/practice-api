@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./App.scss";
 import Nav from "./Components/Nav/Nav";
 import { UserContext } from "./contexts/UserContext";
-import { RecipeContext } from "./contexts/RecipeContext";
+import { RecipeIdContext } from "./contexts/RecipeIdContext";
 import routes from "./routes";
 
 function App() {
@@ -30,10 +30,10 @@ function App() {
         sessionChecked && (
           // (userData.id ? (
           <UserContext.Provider value={[userData, setUserData]}>
-            <RecipeContext.Provider value={[recipeId, setRecipeId]}>
+            <RecipeIdContext.Provider value={[recipeId, setRecipeId]}>
             <Nav />
             {routes}
-            </RecipeContext.Provider>
+            </RecipeIdContext.Provider>
           </UserContext.Provider>
         )
         // ) : (
