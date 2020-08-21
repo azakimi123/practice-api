@@ -2,10 +2,12 @@ import Axios from "axios";
 import React, { useState, useContext } from "react";
 import RecipeView from '../RecipeView/RecipeView';
 import { RecipeIdContext } from '../../contexts/RecipeIdContext';
+import { MealPlanIdContext } from '../../contexts/MealPlanIdContext';
 import "./Search.scss";
 
 const RecipeSearchResult = (props) => {
-  const [recipeId, setRecipeId] = useContext(RecipeIdContext)
+  const [recipeId, setRecipeId] = useContext(RecipeIdContext);
+  const [mealPlanId, setMealPlanId] = useContext(MealPlanIdContext);
   const { baseUri, data } = props;
   const { image, title, id } = data;
   return (
@@ -19,9 +21,12 @@ const RecipeSearchResult = (props) => {
 export default () => {
   const [titleQuery, setTitleQuery] = useState("");
 
+
   const [apiRes, setApiRes] = useState({ results: [] });
 
   const [recipeId, setRecipeId] = useContext(RecipeIdContext);
+  const [mealPlanId, setMealPlanId] = useContext(MealPlanIdContext);
+
 
   const performSearch = async () => {
     const res = await Axios.get("/api/recipes", {
@@ -32,7 +37,10 @@ export default () => {
     setApiRes(res.data);
   };
 
-  // console.log(recipeId)
+
+
+  console.log(mealPlanId)
+  console.log(recipeId)
   return (
     <section className="search">
       <div className="textfield-container">

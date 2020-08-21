@@ -26,6 +26,7 @@ export default () => {
         </div>
         <div>
           <Link to="/cart">Cart</Link>
+          <Link to='/dashboard'>Dashboard</Link>
           <Link to="/profile">
             {userData.first_name} {userData.last_name}
           </Link>

@@ -4,12 +4,14 @@ import "./App.scss";
 import Nav from "./Components/Nav/Nav";
 import { UserContext } from "./contexts/UserContext";
 import { RecipeIdContext } from "./contexts/RecipeIdContext";
+import { MealPlanIdContext } from "./contexts/MealPlanIdContext";
 import routes from "./routes";
 
 function App() {
   const [sessionChecked, setSessionChecked] = useState(false);
   const [userData, setUserData] = useState({});
   const [recipeId, setRecipeId] = useState(null);
+  const [mealPlanId, setMealPlanId] = useState(null);
 
   // check session for signed in status
   useEffect(() => {
@@ -31,8 +33,10 @@ function App() {
           // (userData.id ? (
           <UserContext.Provider value={[userData, setUserData]}>
             <RecipeIdContext.Provider value={[recipeId, setRecipeId]}>
+              <MealPlanIdContext.Provider value={[mealPlanId, setMealPlanId]}>
             <Nav />
             {routes}
+              </MealPlanIdContext.Provider>
             </RecipeIdContext.Provider>
           </UserContext.Provider>
         )

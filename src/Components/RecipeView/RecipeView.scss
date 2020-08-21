@@ -7,6 +7,15 @@
     align-items: center;
     background: white;
     overflow-y: auto;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.recipe-view-top{
+    display: flex;
+    flex-direction: column;
 }
 
 .recipe-info{
@@ -29,7 +38,7 @@
 }
 
 .recipe-directions{
-    margin-top: 700px;
+    margin-top: 800px;
     width: 300px;
     height: 500px;
     flex-direction: column;

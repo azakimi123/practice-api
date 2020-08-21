@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { RecipeIdContext } from "../../contexts/RecipeIdContext";
+import { MealPlanIdContext } from '../../contexts/MealPlanIdContext';
 import Axios from "axios";
 import "./RecipeView.scss";
 
 function RecipeView(props) {
-  const [recipe, setRecipe] = useState([{}]);
+  const [mealPlanId, setMealPlanId] = useContext(MealPlanIdContext);
   const [recipeId, setRecipeId] = useContext(RecipeIdContext);
+  const [recipe, setRecipe] = useState([{}]);
+  const [day, setDay] = useState('');
+  const [meal, setMeal] = useState('');
 
   //set recipe information to display
   useEffect(() => {
@@ -21,11 +25,43 @@ function RecipeView(props) {
       .catch((err) => console.log(err));
   };
 
+  const handleAdd = () => {
+    Axios.post('/api/add-recipe', {recipeId, mealPlanId, day, meal, title: recipe[0].title})
+    .then( () => {
+      setMeal('')
+      setDay('')
+    })
+    .catch(err => console.log(err))
+  }
+
   return (
     <div className="recipe-view-container">
-      <div>
-        <h1>Recipe View</h1>
-      </div>
+      <section  className="recipe-view-top">
+        <div>
+        <div className="selectors">
+                      <select className="options" value={day} onChange={e => setDay(e.target.value)}>
+                            <option>Sunday</option>
+                            <option>Monday</option>
+                            <option>Tuesday</option>
+                            <option>Wednesday</option>
+                            <option>Thursday</option>
+                            <option>Friday</option>
+                            <option>Saturday</option>
+                      </select>
+        </div>
+        <div>
+        <select className="options" value={meal} onChange={e => setMeal(e.target.value)}>
+                            <option>Breakfast</option>
+                            <option>Lunch</option>
+                            <option>Dinner</option>
+                      </select>
+        </div>
+         <button onClick={handleAdd}>Add</button>
+        </div>
+        <div>
+          <h1>{recipe[0].title}</h1>
+        </div>
+      </section>
       {!recipe[0].extendedIngredients ? (
         <h1>Loading</h1>
       ) : (
@@ -59,3 +95,7 @@ function RecipeView(props) {
 }
 
 export default RecipeView;
+
+
+{/* <input value={day} placeholder='day' onChange={e => setDay(e.target.value)}/>
+<input value={meal} placeholder='meal' onChange={e => setMeal(e.target.value)} /> */}

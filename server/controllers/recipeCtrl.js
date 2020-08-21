@@ -24,5 +24,29 @@ module.exports = {
     const {id} = req.params;
     const apiRes = await Axios.get(`https://api.spoonacular.com/recipes/informationBulk?apiKey=${SPOONACULAR_API_KEY}&ids=${id}`);
     res.status(200).send(apiRes.data);
+  },
+
+  addRecipe: (req, res) => {
+    console.log(`recipe added to db`)
+    const db = req.app.get('db');
+
+    const { recipeId, mealPlanId, day, meal, title } = req.body;
+
+    db.recipe.add_recipe({ recipeId, mealPlanId, day, meal, title })
+    .then(data => {
+      res.status(200).send(data)
+    })
+    .catch(err => console.log(err))
+  },
+
+  deleteRecipe: (req, res) => {
+    console.log('recipe deleted')
+    const db = req.app.get('db');
+
+    const { id } = req.params;
+
+    db.recipe.delete_recipe({id})
+    .then(() => res.sendStatus(200))
+    .catch(err => console.log(err))
   }
 };
